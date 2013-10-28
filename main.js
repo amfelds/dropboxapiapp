@@ -13,6 +13,7 @@ window.onload = function () {
 
 	if (client.isAuthenticated()) {
 	    // Client is authenticated. Display UI.
+	    alert("hiya! you're authenticated!");
 	}
 	
 	document.getElementById("dropboxAuthLink").onclick = function () {
