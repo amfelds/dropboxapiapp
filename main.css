@@ -49,3 +49,10 @@ body
 	margin: 5px;
 	cursor: pointer;
 }
+
+.recipeCardTitle
+{
+	font-size: medium;
+	color: brown;
+	margin: 2px;
+}
