@@ -7,7 +7,6 @@ body
 
 #notLoggedInUI
 {
-	display: none;
 	width: 20%;
 	margin: auto;
 	float: center;
@@ -16,6 +15,7 @@ body
 
 #loggedInUI
 {
+	display: none;
 	width: 85%;
 	margin: auto;
 }

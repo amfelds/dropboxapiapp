@@ -13,10 +13,20 @@ window.onload = function () {
 
 	if (client.isAuthenticated()) {
 	    // Client is authenticated. Display UI.
-	    alert("hiya! you're authenticated!");
+	    $("#notLoggedInUI").hide();
+	    $("#loggedInUI").show();
 	}
+	// end copy/paste from dropbox developer tutorial
+	
+	var testAdd = function() {
+		alert("add recipe stub method to call!");
+	};
 	
 	document.getElementById("dropboxAuthLink").onclick = function () {
 		client.authenticate();
+	};
+	
+	document.getElementById("testAddRecipe").onclick = function () {
+		return testAdd();
 	};
 };
