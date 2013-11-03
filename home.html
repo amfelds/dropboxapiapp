@@ -2,13 +2,67 @@
 <html>
 <head>
 <title>My First Dropbox Datastore API app</title>
+<link rel="stylesheet" type="text/css" href="main.css" /> 
 <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
 <script src="main.js"></script>
 </head>
 <body>
+<button id="tempToggle">Show/Hide UI</button>
 <h2>
 Hello, Dropbox world!
 </h2>
+<div id="notLoggedInUI">
+<h3>You need to sign in to see recipes.</h3>
 <button id="dropboxAuthLink">Link to Dropbox</button>
+</div>
+<div id="loggedInUI">
+	<div id="month1" class="monthGroup">
+		<p class="monthLabel">October</p>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+	</div>
+	<div id="month2" class="monthGroup">
+		<p class="monthLabel">September</p>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+	</div>
+	<div id="month3" class="monthGroup">
+		<p class="monthLabel">August</p>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+	</div>
+	<div id="month4" class="monthGroup">
+		<p class="monthLabel">July</p>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+		<a href="recipePage.html"><div class="recipeCard"></div></a>
+	</div>
+	<div id="loadMore">Load more</div>
+</div>
 </body>
 </html>

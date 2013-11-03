@@ -1,0 +1,50 @@
+body
+{
+	background-color: blue;
+	color: white;
+}
+
+#notLoggedInUI
+{
+	display: none;
+	width: 20%;
+	margin: auto;
+	float: center;
+	border: 2px dotted white;
+}
+
+#loggedInUI
+{
+	width: 85%;
+	margin: auto;
+}
+
+#loadMore
+{
+	clear: both;
+	float: right;
+	padding: 40px;
+	cursor: pointer;
+}
+
+.monthGroup
+{
+	clear: both;
+}
+
+.monthLabel
+{
+	padding-top: 50px;
+	color: grey;
+}
+
+.recipeCard
+{
+	width: 150px;
+	height: 150px;
+	background-color: yellow;
+	border: 4px dashed black;
+	float: left;
+	margin: 5px;
+	cursor: pointer;
+}
