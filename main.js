@@ -5,11 +5,12 @@ var DROPBOX_APP_KEY = '8np8mfweu7hax9b';
 var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var recipeTable;
 
+
 $(function () {
 	// Insert a new task record into the table.
 	function insertRecipe(url, name, imgsrc, text) {
 		recipeTable.insert({
-			recipeName: name,
+			recipename: name,
 			link: url,
 			created: new Date(),
 			imageurl: imgsrc,
@@ -19,7 +20,7 @@ $(function () {
 	
 	// updateList will be called every time the table changes.
 	function updateList() {
-		//$('#recipes').empty();
+		$('#recipes').empty();
 
 		var records = recipeTable.query();
 
@@ -33,12 +34,15 @@ $(function () {
 		// Add an item to the list for each task.
 		for (var i = 0; i < records.length; i++) {
 			var record = records[i];
+			console.log(record);
 			$('#recipes').append(
 				renderRecipe(record.getId(),
 					record.get('recipename'),
 					record.get('link'),
 					record.get('created'),
-					record.get('imageurl')));
+					record.get('imageurl')
+				)
+			);
 		}
 
 		addListeners();
@@ -62,7 +66,7 @@ $(function () {
 	if (client.isAuthenticated()) {
 		// Client is authenticated. Display UI.
 		$('#notLoggedInUI').hide();
-		$('#loggedInUI').show();
+		$('#loggedInListUI').show();
 
 		client.getDatastoreManager().openDefaultDatastore(function (error, datastore) {
 			if (error) {
@@ -81,11 +85,50 @@ $(function () {
 	
 	// Render the HTML for a single task.
 	function renderRecipe(id, name, url, date, imgsrc) {
-		return $('<div>').attr('id', id).addClass('recipeCard');;
+		console.log(name);
+		return $('<div>').attr('id', id).append(
+				$('<img>').attr('src', imgsrc).addClass('recipeCardPic')
+			).append(
+				$('<p>').html(name).addClass('recipeCardTitle')
+			)
+			.addClass('recipeCard');
 	}
 	
 	// Register event listeners to handle completing and deleting.
 	function addListeners() {
+		$('.recipeCard').click(function (e) {
+			e.preventDefault();
+			var div = $(this);
+			var id = div.attr('id');
+			navToRecipe(id);
+		});
+		
+		$('#homeHeader').click(function (e) {
+			e.preventDefault();
+			var urlSplit = (window.location.href).split('?');
+			if (urlSplit.length > 1) {
+				window.location.href = urlSplit(0);
+			}
+			$('#loggedInItemUI').hide();
+			$('#loggedInListUI').show();
+		});
+				
+	}
+	
+	// This function is from http://snipplr.com/view/19838/get-url-parameters/
+	function getUrlVars() {
+		var map = {};
+		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			map[key] = value;
+		});
+		return map;
+	}
+	
+	function navToRecipe(id) {
+		window.location.href = (window.location.href).split('?')[0] + "?id=" + id;
+		
+		$('#loggedInListUI').hide();
+		$('#loggedInItemUI').show();
 	}
 	
 	// Hook form submit and add the new task.
@@ -95,7 +138,8 @@ $(function () {
 			insertRecipe($('#newRecipeUrl').val(),
 						$('#newRecipeName').val(),
 						$('#newRecipeImgSrc').val(),
-						$('#newRecipeText').val());
+						$('#newRecipeText').val()
+			);
 			$('#newRecipeUrl').val('');
 			$('#newRecipeName').val('');
 			$('#newRecipeImgSrc').val('');

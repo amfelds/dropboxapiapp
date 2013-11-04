@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 body
 {
-	background-color: blue;
-	color: white;
 }
 
 #notLoggedInUI
@@ -43,8 +40,7 @@ body
 {
 	width: 150px;
 	height: 150px;
-	background-color: yellow;
-	border: 4px dashed black;
+	border: 4px dashed grey;
 	float: left;
 	margin: 5px;
 	cursor: pointer;
@@ -53,6 +49,17 @@ body
 .recipeCardTitle
 {
 	font-size: medium;
-	color: brown;
-	margin: 2px;
+	color: black;
+	position: relative;
+	background-color: rgba(255,255,255,0.75);
+	width: 146px;
+	height: 40px;
+	top: -60px;
+	padding-left: 4px;
+}
+
+.recipeCardPic
+{
+	width: 150px;
+	height: 150px;
 }

@@ -8,18 +8,18 @@
 <script src="main.js"></script>
 </head>
 <body>
-<h2>
-CookIt
+<h2 id="homeHeader">
+<a href="home.html">CookIt</a>
 </h2>
 <div id="notLoggedInUI">
 <h3>You need to sign in to see recipes.</h3>
 <button id="dropboxAuthLink">Link to Dropbox</button>
 </div>
-<div id="loggedInUI">
+<div id="loggedInListUI">
 	<div id="addRecipeBlock">
 	Save a recipe - enter details below.
     	<form id="testAddRecipe">
-    		<textarea id="newRecipeName" title="Enter name"></textarea>
+    		<textarea id="newRecipeName" value="Enter name"></textarea>
     		<textarea id="newRecipeUrl">Enter URL</textarea>
     		<textarea id="newRecipeText">Enter recipe text</textarea>
     		<textarea id="newRecipeImgSrc">Enter image URL</textarea>
@@ -27,9 +27,9 @@ CookIt
     	</form>
 	</div>
 	<div id="recipes">
-		<div id="1234" class="recipeCard">
-		</div>
 	</div>
+</div>
+<div id="loggedInItemUI">
 </div>
 </body>
 </html>
