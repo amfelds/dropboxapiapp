@@ -104,7 +104,7 @@ $(function () {
 		});
 		
 		$('#homeHeader').click(function (e) {
-			e.preventDefault();
+			//e.preventDefault();
 			var urlSplit = (window.location.href).split('?');
 			if (urlSplit.length > 1) {
 				window.location.href = urlSplit(0);

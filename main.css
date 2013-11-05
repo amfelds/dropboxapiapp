@@ -10,19 +10,14 @@ body
 	border: 2px dotted white;
 }
 
-#loggedInUI
+#loggedInListUI
 {
-	display: none;
 	width: 85%;
 	margin: auto;
 }
 
-#loadMore
+#loggedInItemUI
 {
-	clear: both;
-	float: right;
-	padding: 40px;
-	cursor: pointer;
 }
 
 .monthGroup
