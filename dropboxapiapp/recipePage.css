@@ -1,0 +1,73 @@
+body
+{
+	background-color: green;
+}
+
+#header
+{
+	color: dark-green;
+	width: 770px;
+	height: 100px;
+	margin: auto;
+}
+
+#titleText
+{
+	float: right;
+	margin-top: 35px;
+	margin-right: 10px;
+}
+
+#recipeTitle
+{
+	font-size: xx-large;
+}
+
+#subTitle
+{
+	font-size: small;
+	float: right;
+}
+
+.image
+{
+	float: right;
+	width: 90px;
+	height: 90px;
+	background-color: white;
+	margin-top: 20px;
+	margin-right: 0px;
+	border: 2px dashed grey;
+}
+
+#content
+{
+	width: 770px;
+	margin: auto;
+	clear: both;
+}
+
+#ingredients
+{
+	width: 38%;
+	float: left;
+	padding-right: 20px;
+}
+
+#instructions
+{
+	width: 58%;
+	float: right;
+}
+
+#details
+{
+	clear: both;
+	padding-top: 25px;
+}
+
+li
+{
+	padding: 4px;
+}
+

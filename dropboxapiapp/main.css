@@ -1,0 +1,60 @@
+body
+{
+}
+
+#notLoggedInUI
+{
+	width: 20%;
+	margin: auto;
+	float: center;
+	border: 2px dotted white;
+}
+
+#loggedInListUI
+{
+	width: 85%;
+	margin: auto;
+}
+
+#loggedInItemUI
+{
+}
+
+.monthGroup
+{
+	clear: both;
+}
+
+.monthLabel
+{
+	padding-top: 50px;
+	color: grey;
+}
+
+.recipeCard
+{
+	width: 150px;
+	height: 150px;
+	border: 4px dashed grey;
+	float: left;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.recipeCardTitle
+{
+	font-size: medium;
+	color: black;
+	position: relative;
+	background-color: rgba(255,255,255,0.75);
+	width: 146px;
+	height: 40px;
+	top: -60px;
+	padding-left: 4px;
+}
+
+.recipeCardPic
+{
+	width: 150px;
+	height: 150px;
+}
