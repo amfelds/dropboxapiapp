@@ -1,0 +1,11 @@
+#singleCookitDiv
+{
+	position: absolute;
+	top: 0px;
+	z-index:1000;
+	width: 670px;
+	height: 200px;
+	background-color: blue;
+	color: white;
+	font-size: large;
+}
