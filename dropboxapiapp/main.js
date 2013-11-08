@@ -1,12 +1,23 @@
 // Insert your Dropbox app key here:
 var DROPBOX_APP_KEY = '8np8mfweu7hax9b';
+var HOME_URL = 'http://localhost:8000/dropbox/dropboxapiapp/home.html'
 
 // Exposed for easy access in the browser console.
 var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var recipeTable;
+var queryParams;
 
 
 $(function () {
+	// This function is from http://snipplr.com/view/19838/get-url-parameters/
+	function getUrlVars() {
+		var map = {};
+		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			map[key] = value;
+		});
+		return map;
+	}
+
 	// Insert a new task record into the table.
 	function insertRecipe(url, name, imgsrc, text) {
 		recipeTable.insert({
@@ -20,7 +31,7 @@ $(function () {
 	
 	// updateList will be called every time the table changes.
 	function updateList() {
-		$('#recipes').empty();
+		$('#recipeList').empty();
 
 		var records = recipeTable.query();
 
@@ -34,9 +45,8 @@ $(function () {
 		// Add an item to the list for each task.
 		for (var i = 0; i < records.length; i++) {
 			var record = records[i];
-			console.log(record);
-			$('#recipes').append(
-				renderRecipe(record.getId(),
+			$('#recipeList').append(
+				renderListItemRecipe(record.getId(),
 					record.get('recipename'),
 					record.get('link'),
 					record.get('created'),
@@ -47,6 +57,23 @@ $(function () {
 
 		addListeners();
 		$('#newRecipe').focus();
+	}
+	
+	// updateItem will be called when a specific item is clicked
+	function updateItem(queryID) {
+		$('#recipeItem').empty();
+		
+		var recipeToShow = recipeTable.query({id: queryID});
+		
+		$('#recipeItem').append(
+			renderSingleRecipe(recipeToShow.getId(),
+				recipeToShow.get('recipename'),
+				recipeToShow.get('link'),
+				recipeToShow.get('created'),
+				recipeToShow.get('imageurl'),
+				recipeToShow.get('text')
+				)
+			);
 	}
 	
 	// The login button will start the authentication process.
@@ -64,10 +91,9 @@ $(function () {
 	});
 	
 	if (client.isAuthenticated()) {
-		// Client is authenticated. Display UI.
+		// Client is authenticated. Display UI (conditional on query params)
 		$('#notLoggedInUI').hide();
-		$('#loggedInListUI').show();
-
+		
 		client.getDatastoreManager().openDefaultDatastore(function (error, datastore) {
 			if (error) {
 				alert('Error opening default datastore: ' + error);
@@ -81,11 +107,21 @@ $(function () {
 			// Ensure that future changes update the list.
 			datastore.recordsChanged.addListener(updateList);
 		});
+		
+		queryParams = getUrlVars();
+		
+		if (queryParams['id'] === undefined) {
+			$('#loggedInListUI').show();
+			$('#loggedInItemUI').hide();
+		} else {
+			// TODO: updateItem()
+			$('#loggedInListUI').hide();
+			$('#loggedInItemUI').show();
+		}
 	}
 	
-	// Render the HTML for a single task.
-	function renderRecipe(id, name, url, date, imgsrc) {
-		console.log(name);
+	// Render the HTML for a recipe list item
+	function renderListItemRecipe(id, name, url, date, imgsrc) {
 		return $('<div>').attr('id', id).append(
 				$('<img>').attr('src', imgsrc).addClass('recipeCardPic')
 			).append(
@@ -94,41 +130,31 @@ $(function () {
 			.addClass('recipeCard');
 	}
 	
+	// Render the HTML for a selected recipe item
+	function renderSingleRecipe(id, name, url, date, imgsrc, text) {
+		return $('<div>').attr('id', 'fullrecipe'+id).append(
+			$('<h2>').html(name)
+		).append(
+			$('<h3>').html("Saved on " + date)
+		).append(
+			$('<img>').attr('src', imgsrc)
+		);
+	}
+	
 	// Register event listeners to handle completing and deleting.
 	function addListeners() {
 		$('.recipeCard').click(function (e) {
 			e.preventDefault();
 			var div = $(this);
 			var id = div.attr('id');
-			navToRecipe(id);
+			window.location.href = (window.location.href).split('?')[0] + "?id=" + id;	
 		});
 		
 		$('#homeHeader').click(function (e) {
-			//e.preventDefault();
-			var urlSplit = (window.location.href).split('?');
-			if (urlSplit.length > 1) {
-				window.location.href = urlSplit(0);
-			}
-			$('#loggedInItemUI').hide();
-			$('#loggedInListUI').show();
+			e.preventDefault();
+			window.location.href = HOME_URL;
 		});
 				
-	}
-	
-	// This function is from http://snipplr.com/view/19838/get-url-parameters/
-	function getUrlVars() {
-		var map = {};
-		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			map[key] = value;
-		});
-		return map;
-	}
-	
-	function navToRecipe(id) {
-		window.location.href = (window.location.href).split('?')[0] + "?id=" + id;
-		
-		$('#loggedInListUI').hide();
-		$('#loggedInItemUI').show();
 	}
 	
 	// Hook form submit and add the new task.
