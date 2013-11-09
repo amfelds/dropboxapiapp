@@ -4,10 +4,10 @@ TODO:
 + use hero/supporting content layout from bootstrap for home
 	- put recipes in supporting content
 	- make some content for hero
++ support deleting or checking-off recipes
+- make recipes sorted by date (month in side bar)
 - make recipe page show recipe link in an iframe
 - make an "add recipe" form that saves the recipe (with or without title, img, etc)
-- support deleting or checking-off recipes
-- make recipes sorted by date (month in side bar)
 - make bookmarklet redirect to add form, and then redirect back
 - put bookmarklet + instructions somewhere in "about"
 - hard-code readable recipes for certain domains
@@ -15,6 +15,10 @@ TODO:
 - support searching through recipes
 - create archive, starred recipes
 - support logging out
+- change some datastore elements to be older (different months/years)
+- check for dupes before saving recipe
+	>> var dupes = recipeTable.query({link: link_to_add});
+	>> if (dupes.length > 0) // todo: don't add this one
 
 
 (for parsing recipe pages)
