@@ -1,7 +1,84 @@
+#homeHeader {
+	cursor: pointer;
+}
+
+#saveUrlButton {
+}
+
 #loggedInContainer {
-	color: red;
+	
 }
  
- #notLoggedInContainer {
+#notLoggedInContainer {
+	display: none;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
 
+.sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+
+.form-signin {
+	max-width: 300px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+}
+
+.recipeCard
+{
+	width: 150px;
+	height: 150px;
+	border: 4px dashed grey;
+	float: left;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.recipeCardTitle
+{
+	font-size: medium;
+	color: black;
+	position: relative;
+	background-color: rgba(255,255,255,0.75);
+	width: 146px;
+	height: 40px;
+	top: -60px;
+	padding-left: 4px;
+}
+
+.recipeCardPic
+{
+	width: 150px;
+	height: 150px;
 }

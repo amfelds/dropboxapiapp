@@ -9,6 +9,8 @@ var queryParams;
 
 
 $(function () {
+	alert('main.js is run!');
+
 	// This function is from http://snipplr.com/view/19838/get-url-parameters/
 	function getUrlVars() {
 		var map = {};
