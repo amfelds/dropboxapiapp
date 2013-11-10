@@ -2,8 +2,8 @@ cookit notes
 TODO:
 - make nav links show appropriate content (stub html for now)
 + use hero/supporting content layout from bootstrap for home
-	- put recipes in supporting content
-	- make some content for hero
+	- programmatically put recipes in supporting content
+	+ make some content for hero
 + support deleting or checking-off recipes
 + make recipes sorted by date 
 - in bootstrap, show month groups in side bar
@@ -20,6 +20,8 @@ TODO:
 - check for dupes before saving recipe
 	>> var dupes = recipeTable.query({link: link_to_add});
 	>> if (dupes.length > 0) // todo: don't add this one
+- if I download the dropbox api js file, can i work offline?
+-  Add elements to the sidebar list for each year	
 
 
 (for parsing recipe pages)

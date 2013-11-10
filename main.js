@@ -10,7 +10,6 @@ var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var recipeTable;
 var queryParams;
 
-// TODO: make month string array
 var monthMap = {0: 'January',
 	1: 'February',
 	2: 'March',

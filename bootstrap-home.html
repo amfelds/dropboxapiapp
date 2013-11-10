@@ -10,7 +10,7 @@
     
     <!-- Le app scripts -->
     <script src="resources/jquery.js" type="text/javascript"></script>
-	<!-- TODO: uncomment <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>-->
+	<script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
 	<script src="test-additions-to-bootstrap.js"></script>
 
     <!-- Le styles -->
@@ -63,13 +63,8 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Sign in using Dropbox to see your recipes</h2>
-        <!--<input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
-        <label class="checkbox">-->
-          <!-- TODO: Is there a way to put a "remember me" checkbox in a datastore client? -->
-          <!--<input type="checkbox" value="remember-me"> Remember me-->
         </label>
-        <button id="dropboxAuthLink" class="btn btn-large btn-primary" type="submit">Sign in to Dropbox</button>
+        <button id="loginButton" class="btn btn-large btn-primary" type="submit">Sign in to Dropbox</button>
       </form>
 
     </div><!-- /notLoggedInContainer -->
@@ -78,8 +73,8 @@
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">This year</li>
+            <ul id="navHomeSideBar" class="nav nav-list">
+              <!--<li class="nav-header">This year</li>
               <li class="active"><a href="#">November</a></li>
               <li><a href="#">October</a></li>
               <li><a href="#">September</a></li>
@@ -91,7 +86,7 @@
               <li><a href="#">October</a></li>
               <li><a href="#">September</a></li>
               <li><a href="#">August</a></li>
-              <li><a href="#">July</a></li>
+              <li><a href="#">July</a></li>-->
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -101,39 +96,8 @@
             <p>This is a place for you to save and view all the delicious recipes that you find on the web. It saves your links in Dropbox, so you can have access to them everywhere you go.</p>
             <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
           </div>
+          <div id="recipeListDisplay" class="row-fluid">
           <div class="row-fluid">
-            <div class="span4">
-              <h2>Wheat grass smoothie</h2>
-              <p><img src="http://a248.e.akamai.net/origin-cdn.volusion.com/penvm.tdrca/v/vspfiles/photos/GSS-001-1.jpg" /></p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Coffee</h2>
-              <p><img src="http://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG" /></p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Beef Wellington</h2>
-              <p><img src="http://www.finecooking.com/CMS/uploadedImages/Images/Cooking/Articles/Issues_101-110/BeefWellington-40011_xlg.jpg" /></p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Potato and brocollini frittata</h2>
-              <p><img src="http://farm6.staticflickr.com/5473/10537050455_698ffa38fa.jpg" /></p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Marinated chicken satay</h2>
-              <p><img src="http://www.stonehurstmanor.com/wp-content/themes/awake/lib/scripts/timthumb/thumb.php?src=http://www.stonehurstmanor.com/wp-content/uploads/2013/09/ChickenSatay-521.jpg&w=568&h=240&zc=1&q=100" /></p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Raw curried kale chips</h2>
-              <p><img src="http://omnomally.com/wp-content/uploads/2013/10/Raw-Curried-Kale-Chips.jpg" /></p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
             <div class="span4">
               <h2>Pumpkin soup with sage and gruyere croutons</h2>
               <p><img src="http://www.finecooking.com/cms/uploadedimages/images/cooking/articles/issues_101-110/051107083-01-pumpkin-soup-recipe_xlg.jpg" /></p>
