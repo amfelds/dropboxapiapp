@@ -51,11 +51,11 @@ $(function () {
 	}
 	
 	function updateUI(url, title) {
-		$('#saveForm').empty();
-		$('#saveForm').append(
-			renderSaveUI(title, url)
-		);
-		addListeners();
+		$('#postForm').show();
+		$('#saveForm').hide();
+
+		$('#urlToPost').html(url);
+		$('#titleToPost').html(title);
 	}
 		
 	// The login button will start the authentication process.
@@ -93,13 +93,12 @@ $(function () {
 				
 				updateUI(urlToSave, titleToSave);
 				//TODO: Give the user some UI to edit content and save to Dropbox
-				
-				//TODO: On "save," get the url, title, and image (if there is one), save to datastore (call insertRecipe)
-				//TODO: then, redirect user back to the url (or window.location.href = back?"
 			}
 			// Condition C: No supported parameters present. Show save form.
 			else {
-				// TODO: show regular save form
+				$('#saveForm').show();
+				$('#postForm').show();
+				$('#urlToSave').focus();
 			} 
 		
 			addListeners();
@@ -113,34 +112,45 @@ $(function () {
 		).append(
 			$('<h5>').html('Title')
 		).append(
-			$('<textarea>').html(title)
+			$('<textarea>').html(title).attr('id','titleToPost')
 		).append($('<br>')).append(
-			$('<button>').attr('id','bookmarkletSubmit').addClass('btn btn-large btn-primary').attr('type','submit').html('Save to Dropbox')
+			$('<button>').attr('id','bookmarkletPost').addClass('btn btn-large btn-primary').html('Save to Dropbox')
 		);
 	}
         
 	// Register event listeners to handle completing and deleting.
 	function addListeners() {
-// 		$('#bookmarkletSubmit').click(function (e) {
-// 			e.preventDefaults();
-// 		});
 	}
 	
 	// Hook form submit and add the new task.
 	$('#saveForm').submit(function (e) {
 		e.preventDefault();
-		if (urlToSave.length <= 0) {
-			urlToSave = $('#urlToSave').val();
-		}
-		if (titleToSave) {
-			insertRecipe(urlToSave, titleToSave, '', '');
-		}
-		else {
-			insertRecipe(urlToSave,'Blank','',''
-			);
-			$('#urlToSave').val('');
-		}
+		urlToSave = $('#urlToSave').val();
+		console.log(urlToSave);
+		titleToSave = $('#titleToSave').val();
+		var imageToSave = $('#imageToSave').val();
+		
+		insertRecipe(urlToSave,titleToSave,imageToSave,imageToSave);
+		
+		$('#urlToSave').val('');
+		$('#titleToSave').val('');
+		$('#imageToSave').val('');
+		
+		alert('Successfully saved!');
+		$('#urlToSave').focus();
+		
+		//TODO create iframe of url to get title and img
 		return false;
+	});
+	
+	$('#postForm').submit(function (e) {
+		e.preventDefault();
+		titleToSave = $('#titleToPost').val();
+		
+		insertRecipe(urlToSave,titleToSave,'resources/img/placeholder.jpg','');
+		//TODO: change button to "success" for like 2 seconds?
+		alert("Successfully saved!");
+		window.location.href = urlToSave;
 	});
 	
 });

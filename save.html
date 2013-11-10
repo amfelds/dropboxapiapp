@@ -52,7 +52,6 @@
               <li><a id="recipeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html">Recipes</a></li>
               <li class="active"><a id="saveHeader" href="http://localhost:8000/dropbox/dropboxapiapp/save.html">Save</a></li>
               <li><a id="aboutHeader"  href="http://localhost:8000/dropbox/dropboxapiapp/about.html">About</a></li>
-              <li><a id="contactHeader"  href="http://localhost:8000/dropbox/dropboxapiapp/contact.html">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -71,8 +70,22 @@
     
     <div id="loggedInContainer" class="container-fluid">
     
+    	<form id="postForm" class="form-save">
+    		<h5 id="urlToPost">placeholderurl</h5>
+    		<textarea id='titleToPost' type='input'>Placeholder title</textarea>
+    		<br />
+    		<button class="btn btn-large btn-primary" type="post">Post to Dropbox</button>
+    	</form>
+    
     	<form id="saveForm" class="form-save">
+    		<h5>URL</h5>
     		<textarea id="urlToSave" type="input" placeholder="Enter recipe URL"></textarea>
+    		<br />
+    		<h5>Title</h5>
+    		<textarea id="titleToSave" type="input" placeholder="(Optional) Enter title"></textarea>
+    		<br />
+    		<h5>Image</h5>
+    		<textarea id="imageToSave" type="input" placeholder="(Optional) Enter image URL"></textarea>
     		<br />
     		<button class="btn btn-large btn-primary" type="submit">Save to Dropbox</button>
     	</form>
