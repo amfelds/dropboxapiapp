@@ -175,17 +175,15 @@ $(function () {
 	
 	// Render the HTML for a list entry
 	function renderListRecipe(id, recipename, imgurl) {
-		return $('<div>').attr('id',id).addClass('span4').append(
-				$('<img>').attr('src', imgurl).addClass('recipeListImage')
+		return $('<div>').attr('id',id).addClass('span4').attr('style','background-image:url(' + imgurl + ');').append(
+				$('<p>').append(
+					$('<button>').addClass('delete').addClass('btn').html('&times;')
+				)
 			).append(
 				$('<h4>').html(recipename).addClass('recipeListTitle')
 			).append(
 				$('<p>').append(
 					$('<a>').attr('href','#').addClass('btn').addClass('selectRecipe').html('View recipe &raquo;')
-				)
-			).append(
-				$('<p>').append(
-					$('<button>').addClass('delete').addClass('btn').html('&times;')
 				)
 			);
 	}

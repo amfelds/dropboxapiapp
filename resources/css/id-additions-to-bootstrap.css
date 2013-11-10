@@ -24,19 +24,11 @@
 	background-image: url('http://www.kitcheninteriordesign.net/images/Interior_White_Kitchen_009449_.jpg');
 }
 
-.recipe-span {
-	width: 300px;
-	float: left;
-}
-
-.recipeListImage {
-	float:left;
-	padding: 5px;
-	width: inherit; 
-}
-
 .recipeListTitle {
-
+	color: black;
+	background: rgba(255,255,255,0.7);
+	padding: 2px;
+	min-height: 2em;
 }
 
 button.delete {
@@ -45,7 +37,7 @@ button.delete {
 }
 
 .span4 {
-	border: 1px solid red;
+	height: 160px;
 }
 
 .sidebar-nav {
