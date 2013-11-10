@@ -1,6 +1,6 @@
 // Insert your Dropbox app key here:
 var DROPBOX_APP_KEY = '8np8mfweu7hax9b';
-var HOME_URL = 'http://localhost:8000/dropbox/dropboxapiapp/home.html'
+var HOME_URL = 'http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html'
 
 // Exposed for easy access in the browser console.
 var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
@@ -28,6 +28,17 @@ $(function () {
 			map[key] = value;
 		});
 		return map;
+	}
+	
+	function getUrlFragment() {
+		alert('running getUrlFragment');
+		var loc = window.location.href.split('#');
+		if (loc.length < 2 || loc[1] === "" || loc[1] === undefined) {
+			return "home";
+		}
+		else {
+			return loc[1];
+		}
 	}
 
 	// The login button will start the authentication process.
@@ -129,13 +140,12 @@ $(function () {
 			);
 		}
 
-		addListeners();
 		// TODO: is this needed? $('#newRecipe').focus();
 	}
 	
 	// updateItem will be called when a specific item is clicked
 	function updateItem(queryID) {
-		var recipeToShow = recipeTable.query({id: queryID});
+		var recipeToShow = recipeTable.get(queryID);
 		$('#selectedRecipe').empty();
 		$('#selectedRecipe').append(		
 			renderSelectedRecipe(queryID, 
@@ -168,40 +178,60 @@ $(function () {
 
 			recipeTable = datastore.getTable('recipes');
 			
-			queryParams = getUrlVars();
-	
-			// Condition A: This is a "post" query (likely coming from a bookmarklet)
-			if (queryParams['url'] !== undefined) {
-				alert("Post stub");
-				//TODO: get the url, title, and image(s) (if it/they exist)
-				//TODO: Give the user some UI to edit content and save to Dropbox
-				//TODO: On "save," get the url, title, and image (if there is one), save to datastore
-				//TODO: then, redirect user back to the url (or window.location.href = back?"
+			var fragment = getUrlFragment();
+			if (fragment === "home") {
+				queryParams = getUrlVars();
+				// Condition A: This is a "post" query (likely coming from a bookmarklet)
+				if (queryParams['url'] !== undefined) {
+					alert("Post stub");
+					//TODO: get the url, title, and image(s) (if it/they exist)
+					//TODO: Give the user some UI to edit content and save to Dropbox
+					//TODO: On "save," get the url, title, and image (if there is one), save to datastore
+					//TODO: then, redirect user back to the url (or window.location.href = back?"
+				}
+				// Condition B: This is a "select" query. Show the selected recipe.
+				else if (queryParams['id'] !== undefined) {	
+					console.log(queryParams['id']);
+				
+					$('#loggedInContainer').show();
+					$('#notLoggedInContainer').hide();
+				
+					$('#loggedInListUI').hide();
+					$('#loggedInItemUI').show();
+				
+					var queryID = queryParams['id'];
+					updateItem(queryID);
+				}
+				// Condition C: No supported parameters present. Show home page with list of recipes.
+				else {
+
+					$('#loggedInContainer').show();
+					$('#notLoggedInContainer').hide();
+				
+					$('#loggedInListUI').show();
+					$('#loggedInItemUI').hide();
+				
+					// Populate the recipe list
+					updateList();
+				
+					// Ensure that future changes update the list.
+					datastore.recordsChanged.addListener(updateList);
+				} 
 			}
-			// Condition B: This is a "select" query. Show the selected recipe.
-			else if (queryParams['id'] !== undefined) {
-				var queryID = queryParams['id'];
-				var record = recipeTable[queryID];
-				console.log(record);
-				var recordname = record.recipename;
-				var recordlink = record.link;
-				$('#selectedRecipe').append(
-					renderItemRecipe(queryID,recordname,recordlink)
-				);
-				$('#loggedInListUI').hide();
-				$('#loggedInItemUI').show();
+			else if (fragment === "save") {
+				alert('need to show the save thing');
 			}
-			// Condition C: No supported parameters present. Show home page with list of recipes.
+			else if (fragment === "about") {
+				alert('need to show the about thing');
+			}
+			else if (fragment === "contact") {
+				alert('need to show the contact thing');
+			}
 			else {
-				$('#loggedInContainer').show();
-				$('#notLoggedInContainer').hide();
-				
-				// Populate the recipe list
-				updateList();
-				
-				// Ensure that future changes update the list.
-				datastore.recordsChanged.addListener(updateList);
-			} 
+			}
+			
+			addListeners();
+			addLinks();
 		});
 	}
 	
@@ -225,50 +255,50 @@ $(function () {
 	
 	// Render the HTML for a selected recipe 
 	function renderSelectedRecipe(id, name, url) {
-		alert('renderSelectedRecipe stub');
-		// TODO
-// 		return $('<div>').attr('id', id).append(
-// 				$('<img>').attr('src', url).addClass('recipeCardPic')
-// 			).append(
-// 				$('<p>').html(name).addClass('recipeCardTitle')
-// 			)
-// 			.addClass('recipeCard');
+		return $('<a>').attr('href',url).attr('target','_blank').append(
+				$('<h1>').html(name)
+			).append('<iframe>').attr('src',url);
 	}
 	
 	// Render the HTML for a list entry
 	function renderListRecipe(id, recipename, imgurl) {
-		return $('<div>').addClass('span4').append(
-				$('<h2>').html(recipename)
+		return $('<div>').attr('id',id).addClass('span4').append(
+				$('<img>').attr('src', imgurl).addClass('recipeListImage')
 			).append(
-				$('<p>').append($('<img>').attr('src', imgurl))
+				$('<h4>').html(recipename).addClass('recipeListTitle')
 			).append(
-				$('<p>').append($('<a>').attr('href','#').addClass('btn').html('View details &raquo;'))
+				$('<p>').append($('<a>').attr('href','#').addClass('btn').addClass('selectRecipe').html('View details &raquo;'))
 			);
 	}
         
 	// Register event listeners to handle completing and deleting.
 	function addListeners() {
-// TODO: is it recipeCard? or is it the "show more" button?		
-		$('.recipeCard').click(function (e) {
+		$('.selectRecipe').click(function (e) {
 			e.preventDefault();
-			var div = $(this);
+			var div = $(this).parents('div');
 			var id = div.attr('id');
-			window.location.href = (window.location.href).split('?')[0] + "?id=" + id;	
+			window.location.assign(HOME_URL + "?id=" + id);	
+		});	
+		
+		$('#recipeHeader').click(function (e) {
+			e.preventDefault();
+			window.location.assign(HOME_URL);
 		});
 		
-// TODO: are there delete buttons?		
-		$('button.delete').click(function (e) {
+		
+		$('#aboutHeader').click(function (e) {
 			e.preventDefault();
-			var id = $(this).parents('div').attr('id');
-			deleteRecord(id);
+			window.location.assign(HOME_URL+"#about");
 		});
 		
-// TODO: is it homeHeader?		
-		$('#homeHeader').click(function (e) {
+		$('#contactHeader').click(function (e) {
 			e.preventDefault();
-			window.location.href = HOME_URL;
+			window.location.assign(HOME_URL+"#contact");
 		});
-				
+	}
+	
+	function addLinks() {
+		$('#homeHeader').attr('href',HOME_URL);
 	}
 	
 	// Hook form submit and add the new task.

@@ -10,6 +10,7 @@ var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var recipeTable;
 var queryParams;
 
+// TODO: make month string array
 var monthMap = {0: 'January',
 	1: 'February',
 	2: 'March',
@@ -61,6 +62,7 @@ $(function () {
 		var yearBuckets = [];
 		var currDate = new Date();
 
+/*	
 		// Sort the recipes into log-scale reverse-chronological buckets
 		// (remember getMonth() >> 0 is January)
 		var c = 0;
@@ -99,34 +101,24 @@ $(function () {
 			$('#recipeList').append(
 				renderMonthList(monthString)
 			);
-			for (var j = 0; j < bucket.length; j++) {
-				var record = bucket[j];
-				$('#recipeList').append(
-					renderListItemRecipe(record.getId(),
-						record.get('recipename'),
-						record.get('link'),
-						record.get('created'),
-						record.get('imageurl')
-					)
-				);
-			}
 		}
 		for (var i = 0; i < yearBuckets.length; i++) {
 			var bucket = yearBuckets[i];
 		}
+*/
 
 		// Add an item to the list for each recipe.
-// 		for (var i = 0; i < records.length; i++) {
-// 			var record = records[i];
-// 			$('#recipeList').append(
-// 				renderListItemRecipe(record.getId(),
-// 					record.get('recipename'),
-// 					record.get('link'),
-// 					record.get('created'),
-// 					record.get('imageurl')
-// 				)
-// 			);
-// 		}
+		for (var i = 0; i < records.length; i++) {
+			var record = records[i];
+			$('#recipeList').append(
+				renderListItemRecipe(record.getId(),
+					record.get('recipename'),
+					record.get('link'),
+					record.get('created'),
+					record.get('imageurl')
+				)
+			);
+		}
 
 		addListeners();
 		$('#newRecipe').focus();
@@ -173,6 +165,19 @@ $(function () {
 			}
 
 			recipeTable = datastore.getTable('recipes');
+			
+			var dupes = recipeTable.query({recipename: 'Grilled courgette & aubergine salad with lemon, garlic, mint and bocconcini'});
+			
+			
+			var d = new Date();
+			d.setMonth(8);
+			recipeTable.insert({
+				recipename: 'Beer punch',
+				link: 'http://www.foodnetwork.com/recipes/sunny-anderson/beer-punch-recipe/index.html',
+				created: d,
+				imageurl: 'http://img.foodnetwork.com/FOOD/2012/04/18/0177834_berries-and-beer_s4x3_med.jpg',
+				text: 'i cannot believe this is a thing'
+			});
 
 			// Populate the initial task list.
 			updateList();

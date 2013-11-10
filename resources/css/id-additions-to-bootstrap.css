@@ -10,8 +10,27 @@
 }
  
 #notLoggedInContainer {
+	display: none;
 	padding-top: 40px;
 	padding-bottom: 40px;
+}
+
+.hero-unit {
+	background-image: url('http://dreamwallscolorglass.com/images/new%20color%20glass%20master%20photos/Large/BlankKitchenLarge.jpg');
+}
+
+.recipeListImage {
+	float:left;
+	padding: 5px;
+	width: inherit; 
+}
+
+.recipeListTitle {
+
+}
+
+.span4 {
+	border: 1px solid red;
 }
 
 .sidebar-nav {
