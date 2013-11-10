@@ -6,6 +6,8 @@ var HOME_URL = 'http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html'
 var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var recipeTable;
 var queryParams;
+var urlToSave = "";
+var titleToSave;
 
 var monthMap = {0: 'January',
 	1: 'February',
@@ -47,6 +49,14 @@ $(function () {
 			text: text
 		});
 	}
+	
+	function updateUI(url, title) {
+		$('#saveForm').empty();
+		$('#saveForm').append(
+			renderSaveUI(title, url)
+		);
+		addListeners();
+	}
 		
 	// The login button will start the authentication process.
 	$('#loginButton').click(function (e) {	
@@ -69,51 +79,66 @@ $(function () {
 				alert('Error opening default datastore: ' + error);
 			}
 
+			$('#loggedInContainer').show();
+			
 			recipeTable = datastore.getTable('recipes');
 			
 			queryParams = getUrlVars();
 			// Condition A: This is a "post" query (likely coming from a bookmarklet)
 			if (queryParams['url'] !== undefined) {
-				alert("Post stub");
-				//TODO: get the url, title, and image(s) (if it/they exist)
+				urlToSave = decodeURIComponent(queryParams['url']);
+				var titleToSave = decodeURIComponent(queryParams['title']);
+				var images = queryParams['images'];
+				//TODO: image(s) (if it/they exist)
+				
+				updateUI(urlToSave, titleToSave);
 				//TODO: Give the user some UI to edit content and save to Dropbox
+				
 				//TODO: On "save," get the url, title, and image (if there is one), save to datastore (call insertRecipe)
 				//TODO: then, redirect user back to the url (or window.location.href = back?"
 			}
 			// Condition C: No supported parameters present. Show save form.
 			else {
-
-				$('#loggedInContainer').show();
-				$('#notLoggedInContainer').hide();
-			
-				// Ensure that future changes update the list.
-				// TODO: something else besides updateList when it's changed here?
-				//datastore.recordsChanged.addListener(updateList);
+				// TODO: show regular save form
 			} 
 		
 			addListeners();
 		});
 	}
+	
+	// Render the HTML for a sidebar navigation item
+	function renderSaveUI(title, url) {
+		return $('<div>').append(
+			$('<h5>').html('URL').append($('<p>').html(url))
+		).append(
+			$('<h5>').html('Title')
+		).append(
+			$('<textarea>').html(title)
+		).append($('<br>')).append(
+			$('<button>').attr('id','bookmarkletSubmit').addClass('btn btn-large btn-primary').attr('type','submit').html('Save to Dropbox')
+		);
+	}
         
 	// Register event listeners to handle completing and deleting.
 	function addListeners() {
-		//$('#saveButton').
+// 		$('#bookmarkletSubmit').click(function (e) {
+// 			e.preventDefaults();
+// 		});
 	}
 	
 	// Hook form submit and add the new task.
 	$('#saveForm').submit(function (e) {
 		e.preventDefault();
-		alert('save submit stub');
-		if ($('#urlToSave').val().length > 0) {
-			insertRecipe($('#urlToSave').val(),
-						'Blank',
-						'',
-						''
+		if (urlToSave.length <= 0) {
+			urlToSave = $('#urlToSave').val();
+		}
+		if (titleToSave) {
+			insertRecipe(urlToSave, titleToSave, '', '');
+		}
+		else {
+			insertRecipe(urlToSave,'Blank','',''
 			);
 			$('#urlToSave').val('');
-// 			$('#newRecipeName').val('');
-// 			$('#newRecipeImgSrc').val('');
-// 			$('#newRecipeText').val('');
 		}
 		return false;
 	});

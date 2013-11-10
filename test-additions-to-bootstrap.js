@@ -156,10 +156,6 @@ $(function () {
 			// Condition A: This is a "post" query (likely coming from a bookmarklet)
 			if (queryParams['url'] !== undefined) {
 				alert("Post stub");
-				//TODO: get the url, title, and image(s) (if it/they exist)
-				//TODO: Give the user some UI to edit content and save to Dropbox
-				//TODO: On "save," get the url, title, and image (if there is one), save to datastore
-				//TODO: then, redirect user back to the url (or window.location.href = back?"
 			}
 			// Condition B: This is a "select" query. Show the selected recipe.
 			else if (queryParams['id'] !== undefined) {				
@@ -183,19 +179,18 @@ $(function () {
 			
 				// Populate the recipe list
 				updateList();
-			
-				// Ensure that future changes update the list.
-				datastore.recordsChanged.addListener(updateList);
 			} 
-		
+			// Ensure that future changes update the list.
+			datastore.recordsChanged.addListener(updateList);
+			
 			addListeners();
-			addLinks();
 		});
 	}
 	
 	// Delete the record with a given ID.
 	function deleteRecord(id) {
 		recipeTable.get(id).deleteRecord();
+		window.location.href.replace(HOME_URL);
 		// TODO: maybe make a temporary div to undo the delete?
 	}
 	
@@ -213,9 +208,15 @@ $(function () {
 	
 	// Render the HTML for a selected recipe 
 	function renderSelectedRecipe(id, name, url) {
-		return $('<a>').attr('href',url).attr('target','_blank').append(
-				$('<h1>').html(name)
-			).append('<iframe>').attr('src',url);
+		return $('<div>').append(
+				$('<button>').addClass('btn').addClass('delete').html('Delete')
+			).append(
+				$('<a>').attr('href',url).attr('target','_blank').append(
+					$('<h1>').html(name)
+				)
+			).append(
+				$('<iframe>').attr('src',url).attr('style','width:100%;height:600px')
+			);
 	}
 	
 	// Render the HTML for a list entry
@@ -225,7 +226,13 @@ $(function () {
 			).append(
 				$('<h4>').html(recipename).addClass('recipeListTitle')
 			).append(
-				$('<p>').append($('<a>').attr('href','#').addClass('btn').addClass('selectRecipe').html('View details &raquo;'))
+				$('<p>').append(
+					$('<a>').attr('href','#').addClass('btn').addClass('selectRecipe').html('View details &raquo;')
+				)
+			).append(
+				$('<p>').append(
+					$('<button>').addClass('delete').addClass('btn').html('&times;')
+				)
 			);
 	}
         
@@ -237,44 +244,12 @@ $(function () {
 			var id = div.attr('id');
 			window.location.assign(HOME_URL + "?id=" + id);	
 		});	
-		
-		$('#recipeHeader').click(function (e) {
+
+		$('button.delete').click(function (e) {
 			e.preventDefault();
-			window.location.assign(HOME_URL);
-		});
-		
-		
-		$('#aboutHeader').click(function (e) {
-			e.preventDefault();
-			window.location.assign(HOME_URL+"#about");
-		});
-		
-		$('#contactHeader').click(function (e) {
-			e.preventDefault();
-			window.location.assign(HOME_URL+"#contact");
+			var id = $(this).parents('div').attr('id');
+			deleteRecord(id);
 		});
 	}
-	
-	function addLinks() {
-		$('#homeHeader').attr('href',HOME_URL);
-	}
-	
-	// Hook form submit and add the new task.
-// TODO: does it save the recipe title and all that? or just the url?	
-	$('#testAddRecipe').submit(function (e) {
-		e.preventDefault();
-		if ($('#newRecipeName').val().length > 0) {
-			insertRecipe($('#newRecipeUrl').val(),
-						$('#newRecipeName').val(),
-						$('#newRecipeImgSrc').val(),
-						$('#newRecipeText').val()
-			);
-			$('#newRecipeUrl').val('');
-			$('#newRecipeName').val('');
-			$('#newRecipeImgSrc').val('');
-			$('#newRecipeText').val('');
-		}
-		return false;
-	});
 	
 });

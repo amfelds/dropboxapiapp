@@ -5,6 +5,11 @@
 #saveUrlButton {
 }
 
+#saveForm {
+	width: 50%;
+	margin: auto;
+}
+
 #loggedInContainer {
 	display: none;
 }
@@ -27,6 +32,11 @@
 
 .recipeListTitle {
 
+}
+
+button.delete {
+	float: right;
+	margin: 1em;
 }
 
 .span4 {
@@ -73,30 +83,30 @@
 	padding: 7px 9px;
 }
 
-.recipeCard
-{
-	width: 150px;
-	height: 150px;
-	border: 4px dashed grey;
-	float: left;
-	margin: 5px;
-	cursor: pointer;
+.form-save {
+	max-width: 600px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
-.recipeCardTitle
-{
-	font-size: medium;
-	color: black;
-	position: relative;
-	background-color: rgba(255,255,255,0.75);
-	width: 146px;
-	height: 40px;
-	top: -60px;
-	padding-left: 4px;
+.form-save .form-save-heading,
+.form-save .checkbox {
+	margin-bottom: 10px;
 }
 
-.recipeCardPic
-{
-	width: 150px;
-	height: 150px;
+.form-save input[type="text"],
+.form-save input[type="password"] {
+	width: 500px;
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
 }
