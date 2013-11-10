@@ -46,10 +46,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" id="homeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html">CookIt</a>
+          <a class="brand" id="homeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/cookit.html.html">CookIt</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a id="recipeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html">Recipes</a></li>
+              <li><a id="recipeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/cookit.html">Recipes</a></li>
               <li class="active"><a id="saveHeader" href="http://localhost:8000/dropbox/dropboxapiapp/save.html">Save</a></li>
               <li><a id="aboutHeader"  href="http://localhost:8000/dropbox/dropboxapiapp/about.html">About</a></li>
             </ul>
@@ -74,7 +74,7 @@
     		<h5 id="urlToPost">placeholderurl</h5>
     		<textarea id='titleToPost' type='input'>Placeholder title</textarea>
     		<br />
-    		<button class="btn btn-large btn-primary" type="post">Post to Dropbox</button>
+    		<button id="bookmarkletPostButton" class="btn btn-large btn-primary" type="post">Save to Dropbox</button>
     	</form>
     
     	<form id="saveForm" class="form-save">
@@ -87,7 +87,7 @@
     		<h5>Image</h5>
     		<textarea id="imageToSave" type="input" placeholder="(Optional) Enter image URL"></textarea>
     		<br />
-    		<button class="btn btn-large btn-primary" type="submit">Save to Dropbox</button>
+    		<button id="manualSaveButton" class="btn btn-large btn-primary" type="submit">Save to Dropbox</button>
     	</form>
 		
       <footer>

@@ -1,6 +1,6 @@
 // Insert your Dropbox app key here:
 var DROPBOX_APP_KEY = '8np8mfweu7hax9b';
-var HOME_URL = 'http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html'
+var HOME_URL = 'http://localhost:8000/dropbox/dropboxapiapp/cookit.html'
 
 // Exposed for easy access in the browser console.
 var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
@@ -97,7 +97,7 @@ $(function () {
 			// Condition C: No supported parameters present. Show save form.
 			else {
 				$('#saveForm').show();
-				$('#postForm').show();
+				$('#postForm').hide();
 				$('#urlToSave').focus();
 			} 
 		
@@ -126,17 +126,22 @@ $(function () {
 	$('#saveForm').submit(function (e) {
 		e.preventDefault();
 		urlToSave = $('#urlToSave').val();
-		console.log(urlToSave);
 		titleToSave = $('#titleToSave').val();
 		var imageToSave = $('#imageToSave').val();
 		
 		insertRecipe(urlToSave,titleToSave,imageToSave,imageToSave);
 		
-		$('#urlToSave').val('');
-		$('#titleToSave').val('');
-		$('#imageToSave').val('');
+		$('#manualSaveButton').html('Saving...');
+		setTimeout(function() {
+			$('#manualSaveButton').html('Success!');
+		},2000);
+		setTimeout(function () {
+			$('#urlToSave').val('');
+			$('#titleToSave').val('');
+			$('#imageToSave').val('');
+			$('#manualSaveButton').html('Save to Dropbox');
+		},1000);
 		
-		alert('Successfully saved!');
 		$('#urlToSave').focus();
 		
 		//TODO create iframe of url to get title and img
@@ -145,12 +150,17 @@ $(function () {
 	
 	$('#postForm').submit(function (e) {
 		e.preventDefault();
-		titleToSave = $('#titleToPost').val();
+		$('#bookmarkletPostButton').html('Saving...');
 		
+		titleToSave = $('#titleToPost').val();
 		insertRecipe(urlToSave,titleToSave,'resources/img/placeholder.jpg','');
-		//TODO: change button to "success" for like 2 seconds?
-		alert("Successfully saved!");
-		window.location.href = urlToSave;
+		
+		setTimeout(function() {
+			$('#bookmarkletPostButton').html('Success! Redirecting...');
+		},2000);
+		setTimeout(function () {
+			window.location.href = urlToSave;
+		},3000);		
 	});
 	
 });

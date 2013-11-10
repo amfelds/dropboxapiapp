@@ -24,6 +24,11 @@
 	background-image: url('http://www.kitcheninteriordesign.net/images/Interior_White_Kitchen_009449_.jpg');
 }
 
+.recipe-span {
+	width: 300px;
+	float: left;
+}
+
 .recipeListImage {
 	float:left;
 	padding: 5px;

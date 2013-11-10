@@ -8,8 +8,10 @@ TODO:
 + support deleting or checking-off recipes
 + make recipes sorted by date 
 + make recipe page show recipe link in an iframe
-- make an "add recipe" form that saves the recipe (with or without title, img, etc)
-- make bookmarklet redirect to add form, and then redirect back
+	- hook up selected recipe delete button to a real function, redirect back to home
++ make an "add recipe" form that saves the recipe 
+	- (with or without title, img, etc)
++ make bookmarklet redirect to add form, and then redirect back
 + put bookmarklet + instructions somewhere in "about"
 - add script object download to bookmarklet that parses the page for images and then redirects to save.html
 - hard-code readable recipes for certain domains
