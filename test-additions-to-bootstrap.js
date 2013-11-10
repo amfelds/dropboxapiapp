@@ -29,17 +29,6 @@ $(function () {
 		});
 		return map;
 	}
-	
-	function getUrlFragment() {
-		alert('running getUrlFragment');
-		var loc = window.location.href.split('#');
-		if (loc.length < 2 || loc[1] === "" || loc[1] === undefined) {
-			return "home";
-		}
-		else {
-			return loc[1];
-		}
-	}
 
 	// The login button will start the authentication process.
 	$('#loginButton').click(function (e) {
@@ -118,29 +107,14 @@ $(function () {
 			}
 		}
 		
-// TODO: Add elements to the sidebar list for each year	
-// 		for (var i = 0; i < yearBuckets.length; i++) {
-// 			var bucket = yearBuckets[i];
-// 			var yearString = bucket[0].get('created').getUTCFullYear();
-// 			$('#navHomeSideBar').append(
-// 				renderSidebarHeader(yearString);
-// 			);
-// 		}
-		
-		// Add the most recent 15 recipes (of this month) to the recipeListDipslay block
-		// TODO
-
 		for (var i = 0; i < records.length; i++) {
 			var record = records[i];
-			console.log(record);
 			$('#recipeListDisplay').append(
 				renderListRecipe(record.getId(),
 					record.get('recipename'),
 					record.get('imageurl'))
 			);
 		}
-
-		// TODO: is this needed? $('#newRecipe').focus();
 	}
 	
 	// updateItem will be called when a specific item is clicked
@@ -178,58 +152,42 @@ $(function () {
 
 			recipeTable = datastore.getTable('recipes');
 			
-			var fragment = getUrlFragment();
-			if (fragment === "home") {
-				queryParams = getUrlVars();
-				// Condition A: This is a "post" query (likely coming from a bookmarklet)
-				if (queryParams['url'] !== undefined) {
-					alert("Post stub");
-					//TODO: get the url, title, and image(s) (if it/they exist)
-					//TODO: Give the user some UI to edit content and save to Dropbox
-					//TODO: On "save," get the url, title, and image (if there is one), save to datastore
-					//TODO: then, redirect user back to the url (or window.location.href = back?"
-				}
-				// Condition B: This is a "select" query. Show the selected recipe.
-				else if (queryParams['id'] !== undefined) {	
-					console.log(queryParams['id']);
-				
-					$('#loggedInContainer').show();
-					$('#notLoggedInContainer').hide();
-				
-					$('#loggedInListUI').hide();
-					$('#loggedInItemUI').show();
-				
-					var queryID = queryParams['id'];
-					updateItem(queryID);
-				}
-				// Condition C: No supported parameters present. Show home page with list of recipes.
-				else {
-
-					$('#loggedInContainer').show();
-					$('#notLoggedInContainer').hide();
-				
-					$('#loggedInListUI').show();
-					$('#loggedInItemUI').hide();
-				
-					// Populate the recipe list
-					updateList();
-				
-					// Ensure that future changes update the list.
-					datastore.recordsChanged.addListener(updateList);
-				} 
+			queryParams = getUrlVars();
+			// Condition A: This is a "post" query (likely coming from a bookmarklet)
+			if (queryParams['url'] !== undefined) {
+				alert("Post stub");
+				//TODO: get the url, title, and image(s) (if it/they exist)
+				//TODO: Give the user some UI to edit content and save to Dropbox
+				//TODO: On "save," get the url, title, and image (if there is one), save to datastore
+				//TODO: then, redirect user back to the url (or window.location.href = back?"
 			}
-			else if (fragment === "save") {
-				alert('need to show the save thing');
-			}
-			else if (fragment === "about") {
-				alert('need to show the about thing');
-			}
-			else if (fragment === "contact") {
-				alert('need to show the contact thing');
-			}
-			else {
-			}
+			// Condition B: This is a "select" query. Show the selected recipe.
+			else if (queryParams['id'] !== undefined) {				
+				$('#loggedInContainer').show();
+				$('#notLoggedInContainer').hide();
 			
+				$('#loggedInListUI').hide();
+				$('#loggedInItemUI').show();
+			
+				var queryID = queryParams['id'];
+				updateItem(queryID);
+			}
+			// Condition C: No supported parameters present. Show home page with list of recipes.
+			else {
+
+				$('#loggedInContainer').show();
+				$('#notLoggedInContainer').hide();
+			
+				$('#loggedInListUI').show();
+				$('#loggedInItemUI').hide();
+			
+				// Populate the recipe list
+				updateList();
+			
+				// Ensure that future changes update the list.
+				datastore.recordsChanged.addListener(updateList);
+			} 
+		
 			addListeners();
 			addLinks();
 		});

@@ -11,7 +11,7 @@
     <!-- Le app scripts -->
     <script src="resources/jquery.js" type="text/javascript"></script>
 	<script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
-	<script src="test-additions-to-bootstrap.js"></script>
+	<script src="save.js"></script>
 
     <!-- Le styles -->
     <link href="resources/css/bootstrap.css" rel="stylesheet">
@@ -46,13 +46,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" id="homeHeader" href="">CookIt</a>
+          <a class="brand" id="homeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html">CookIt</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a id="recipeHeader">Recipes</a></li>
-              <li><a id="saveHeader" href="http://localhost:8000/dropbox/dropboxapiapp/save.html">Save</a></li>
-              <li><a id="aboutHeader"  href="#about">About</a></li>
-              <li><a id="contactHeader"  href="#contact">Contact</a></li>
+              <li><a id="recipeHeader" href="http://localhost:8000/dropbox/dropboxapiapp/bootstrap-home.html">Recipes</a></li>
+              <li class="active"><a id="saveHeader" href="http://localhost:8000/dropbox/dropboxapiapp/save.html">Save</a></li>
+              <li><a id="aboutHeader"  href="http://localhost:8000/dropbox/dropboxapiapp/about.html">About</a></li>
+              <li><a id="contactHeader"  href="http://localhost:8000/dropbox/dropboxapiapp/contact.html">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -70,6 +70,11 @@
     </div><!-- /notLoggedInContainer -->
     
     <div id="loggedInContainer" class="container-fluid">
+    
+    	<form id="saveForm" class="form-signin">
+    		<textarea id="urlToSave" type="input" placeholder="Enter recipe URL"></textarea>
+    		<button class="btn btn-large btn-primary" type="submit">Save to Dropbox</button>
+    	</form>
 		
       <footer>
         <p>&copy; Alex Feldman 2013</p>
