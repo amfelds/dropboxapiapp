@@ -10,6 +10,11 @@
 	margin: auto;
 }
 
+#imgToPost {
+	width: 150px;
+	float: right;
+}
+
 #loggedInContainer {
 	display: none;
 }

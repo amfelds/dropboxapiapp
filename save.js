@@ -8,6 +8,7 @@ var recipeTable;
 var queryParams;
 var urlToSave = "";
 var titleToSave;
+var imageToSave = "";
 
 var monthMap = {0: 'January',
 	1: 'February',
@@ -50,12 +51,13 @@ $(function () {
 		});
 	}
 	
-	function updateUI(url, title) {
+	function updateUI(url, title, img) {
 		$('#postForm').show();
 		$('#saveForm').hide();
 
 		$('#urlToPost').html(url);
 		$('#titleToPost').html(title);
+		$('#imgToPost').attr('src',img);
 	}
 		
 	// The login button will start the authentication process.
@@ -73,6 +75,7 @@ $(function () {
 	});
 	
 	if (client.isAuthenticated()) {
+		$('#notLoggedInContainer').hide();
 		// Client is authenticated. Display UI (conditional on query params)
 		client.getDatastoreManager().openDefaultDatastore(function (error, datastore) {
 			if (error) {
@@ -87,12 +90,12 @@ $(function () {
 			// Condition A: This is a "post" query (likely coming from a bookmarklet)
 			if (queryParams['url'] !== undefined) {
 				urlToSave = decodeURIComponent(queryParams['url']);
-				var titleToSave = decodeURIComponent(queryParams['title']);
-				var images = queryParams['images'];
-				//TODO: image(s) (if it/they exist)
+				titleToSave = decodeURIComponent(queryParams['title']);
+				imageToSave = decodeURIComponent(queryParams['img']);
 				
-				updateUI(urlToSave, titleToSave);
-				//TODO: Give the user some UI to edit content and save to Dropbox
+				//TODO: image(s) (iff it/they exist)
+				
+				updateUI(urlToSave, titleToSave, imageToSave);
 			}
 			// Condition C: No supported parameters present. Show save form.
 			else {
@@ -103,6 +106,9 @@ $(function () {
 		
 			addListeners();
 		});
+	}
+	else {
+		$('#notLoggedInContainer').show();
 	}
 	
 	// Render the HTML for a sidebar navigation item
@@ -153,7 +159,7 @@ $(function () {
 		$('#bookmarkletPostButton').html('Saving...');
 		
 		titleToSave = $('#titleToPost').val();
-		insertRecipe(urlToSave,titleToSave,'resources/img/placeholder.jpg','');
+		insertRecipe(urlToSave,titleToSave,imageToSave,'');
 		
 		setTimeout(function() {
 			$('#bookmarkletPostButton').html('Success! Redirecting...');

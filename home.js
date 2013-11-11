@@ -7,19 +7,6 @@ var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var recipeTable;
 var queryParams;
 
-var monthMap = {0: 'January',
-	1: 'February',
-	2: 'March',
-	3: 'April',
-	4: 'May',
-	5: 'June',
-	6: 'July',
-	7: 'August',
-	8: 'September',
-	9: 'October',
-	10: 'November',
-	11: 'December'}
-
 $(function () {
 	// This function is from http://snipplr.com/view/19838/get-url-parameters/
 	function getUrlVars() {
@@ -37,7 +24,7 @@ $(function () {
 		client.authenticate();
 	});
 
-	// Insert a new task record into the table.
+	// Insert a new recipe record into the table.
 	function insertRecipe(url, name, imgsrc, text) {
 		recipeTable.insert({
 			recipename: name,
@@ -56,8 +43,8 @@ $(function () {
 
 		// Sort by creation time.
 		records.sort(function (recipeA, recipeB) {
-			if (recipeA.get('created') < recipeB.get('created')) return -1;
-			if (recipeA.get('created') > recipeB.get('created')) return 1;
+			if (recipeA.get('created') > recipeB.get('created')) return -1;
+			if (recipeA.get('created') < recipeB.get('created')) return 1;
 			return 0;
 		});
 		
@@ -103,6 +90,7 @@ $(function () {
 	});
 	
 	if (client.isAuthenticated()) {
+		$('#notLoggedInContainer').hide();
 		// Client is authenticated. Display UI (conditional on query params)
 		client.getDatastoreManager().openDefaultDatastore(function (error, datastore) {
 			if (error) {
@@ -119,7 +107,6 @@ $(function () {
 			// Condition B: This is a "select" query. Show the selected recipe.
 			else if (queryParams['id'] !== undefined) {				
 				$('#loggedInContainer').show();
-				$('#notLoggedInContainer').hide();
 			
 				$('#loggedInListUI').hide();
 				$('#loggedInItemUI').show();
@@ -168,7 +155,7 @@ $(function () {
 	// Render the HTML for a selected recipe 
 	function renderSelectedRecipe(id, name, url) {
 		return $('<div>').append(
-				$('<button>').addClass('btn').addClass('delete').html('Delete')
+				$('<button>').addClass('btn').addClass('deleteSelect').html('Delete')
 			).append(
 				$('<a>').attr('href',url).attr('target','_blank').append(
 					$('<h1>').html(name)
@@ -206,6 +193,13 @@ $(function () {
 			e.preventDefault();
 			var id = $(this).parents('div').attr('id');
 			deleteRecord(id);
+		});
+		
+		$('button.deleteSelect').click(function (e) {
+			e.preventDefault();
+			var id = $(this).parents('div').attr('id');
+			deleteRecord(id);
+			window.location.assign(HOME_URL);
 		});
 	}
 	

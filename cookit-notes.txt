@@ -4,7 +4,7 @@ TODO:
 + use hero/supporting content layout from bootstrap for home
 	+ programmatically put recipes in supporting content
 	+ make some content for hero
-	- fix styling for supporting content recipes
+	+ fix styling for supporting content recipes
 + support deleting or checking-off recipes
 + make recipes sorted by date 
 + make recipe page show recipe link in an iframe
@@ -19,6 +19,9 @@ TODO:
 	>> var dupes = recipeTable.query({link: link_to_add});
 	>> if (dupes.length > 0) // todo: don't add this one
 - if I download the dropbox api js file, can i work offline?
+- if I put "my tasks" in a iframe, does it work?
+- look into performance...
+- at least think about how i'd implement conflict resolution
 
 
 

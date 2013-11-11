@@ -72,7 +72,7 @@
     <h1>Now you, too, can save recipes from anywhere!</h1>
     <p>Just add this bookmarklet to your favorites bar (drag and drop, or right-click and "add to bookmarks/favorites").</p>
     <button id="bookmarkletbutton" class="btn">
-    	<a href="javascript:location.href='http://localhost:8000/dropbox/dropboxapiapp/save.html?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);">Cook it later</a>
+    	<a href="javascript:(function(){_my_cookit_frame=document.createElement('SCRIPT');_my_cookit_frame.src='http://localhost:8000/dropbox/dropboxapiapp/resources/js/bookmarklet.js';document.getElementsByTagName('body')[0].appendChild(_my_cookit_frame);})();">Cook it later</a>
     </button>
 		<p></p>
       <footer>
