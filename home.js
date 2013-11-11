@@ -61,13 +61,18 @@ $(function () {
 			return 0;
 		});
 		
+		var parent;
 		for (var i = 0; i < records.length; i++) {
 			var record = records[i];
-			$('#recipeListDisplay').append(
+			if (i % 3 === 0) {
+				parent = $('<div>').addClass('row-fluid');
+				$('#recipeListDisplay').append(parent);
+			}
+			parent.append(
 				renderListRecipe(record.getId(),
 					record.get('recipename'),
 					record.get('imageurl'))
-			);
+				);
 		}
 	}
 	
@@ -175,7 +180,7 @@ $(function () {
 	
 	// Render the HTML for a list entry
 	function renderListRecipe(id, recipename, imgurl) {
-		return $('<div>').attr('id',id).addClass('span4').attr('style','background-image:url(' + imgurl + ');').append(
+		return $('<div>').attr('id',id).addClass('span4').addClass('recipeListSpan4').attr('style','background-image:url(' + imgurl + ');').append(
 				$('<p>').append(
 					$('<button>').addClass('delete').addClass('btn').html('&times;')
 				)

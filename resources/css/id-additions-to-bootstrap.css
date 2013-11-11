@@ -28,7 +28,21 @@
 	color: black;
 	background: rgba(255,255,255,0.7);
 	padding: 2px;
+	margin-left: 10px;
+	margin-right: 10px;
 	min-height: 2em;
+}
+
+.recipeListSpan4 {
+	margin-bottom: 1em;
+	border: 1px solid grey;
+	-webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.btn.selectRecipe {
+	margin-left: 10px;
 }
 
 button.delete {
